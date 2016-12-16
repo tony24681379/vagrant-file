@@ -12,12 +12,16 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
+
+  config.ssh.insert_key = true
+  config.ssh.forward_agent = true
   config.ssh.insert_key = false
-  config.vm.box = "ubuntu/wily64"
+
+  config.vm.box = "ubuntu/xenial64"
 
   config.vm.provider "virtualbox" do |vm|
-    vm.cpus = 4
-    vm.memory = 8192
+    vm.cpus = 2
+    vm.memory = 2048
     
   end
 
@@ -25,8 +29,7 @@ Vagrant.configure(2) do |config|
   boxes = [
     { :name => "node1", :ip => "192.168.33.11" },
     { :name => "node2", :ip => "192.168.33.12" },
-    { :name => "node3", :ip => "192.168.33.13" },
-    { :name => "node4", :ip => "192.168.33.14" }
+    { :name => "node3", :ip => "192.168.33.13" }
   ]
 
   # Provision each of the VMs.
@@ -61,7 +64,7 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "/", "/vagrant_data"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
